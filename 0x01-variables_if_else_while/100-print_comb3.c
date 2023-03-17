@@ -15,11 +15,12 @@ int main(void)
 		{
 			putchar(i);
 			putchar(j);
-			if (i != 8 || j != 9)
+			if (i == 56 && j == 57)
 			{
-				putchar(',');
-				putchar(' ');
+				continue;
 			}
+			putchar(',');
+			putchar(' ');
 		}
 	}
 	putchar('\n');
