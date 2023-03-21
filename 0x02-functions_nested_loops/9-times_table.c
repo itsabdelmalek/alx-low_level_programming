@@ -21,8 +21,16 @@ void times_table(void)
 			{
 				_putchar(',');
 				_putchar(' ');
-				_putchar((t / 10) + '0');
-				_putchar((t % 10) + '0');
+				if (t < 10)
+				{
+					_putchar(' ');
+					_putchar (t + '0');
+				}
+				else
+				{
+					_putchar((t / 10) + '0');
+					_putchar((t % 10) + '0');
+				}
 			}
 		}
 		_putchar('\n');
