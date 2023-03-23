@@ -2,30 +2,26 @@
 
 /**
  * print_number - prints an integer
- * @n: the integer to print
- *
+ * @n: integer to be printed
  * Return: no return
  */
-
 void print_number(int n)
 {
-	int digits = 1;
-	int divisor = 1;
+	unsigned int n1;
 
 	if (n < 0)
 	{
+		n1 = -n;
 		_putchar('-');
-		n *= -1;
-	}
-	while (n / divisor > 9)
+	} else
 	{
-		digits++;
-		divisor *= 10;
+		n1 = n;
 	}
-	while (digits--)
+
+	if (n1 / 10)
 	{
-		_putchar((n / divisor) + '0');
-		n %= divisor;
-		divisor /= 10;
+		print_number(n1 / 10);
 	}
+
+	_putchar((n1 % 10) + '0');
 }
