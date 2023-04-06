@@ -10,3 +10,4 @@ int check_prime(int n, int div);
 int is_palindrome(char *s);
 int _is_palindrome_check(char *s, int i, int j);
 int _strlen_recursion(char *s);
+int wildcmp(char *s1, char *s2);
