@@ -6,14 +6,10 @@
  * @argc: argument count
  * @argv: argument vector
  *
- * Return: 0 on success
+ * Return: always 0 (succes)
  */
 int main(int argc __attribute__((unused)), char **argv)
 {
-	int i;
-
-	for (i = 0; argv[0][i] != '\0'; i++)
-		printf("%c", argv[0][i]);
-	printf("\n");
+	printf("%s\n", *argv);
 	return (0);
 }
