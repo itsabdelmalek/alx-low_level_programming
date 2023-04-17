@@ -11,13 +11,13 @@
  * Description: a struct representing a dog with a name, age, and owner
  */
 
-struct dog
+typedef struct dog
 {
 	char *name;
 	float age;
 	char *owner;
-};
-void init_dog(struct dog *d, char *name, float age, char *owner);
-void print_dog(struct dog *d);
+} dog_t;
+void init_dog(dog_t *d, char *name, float age, char *owner);
+void print_dog(dog_t *d);
 
 #endif /* DOG_H */
