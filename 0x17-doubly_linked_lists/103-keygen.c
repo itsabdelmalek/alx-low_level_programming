@@ -1,35 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <openssl/sha.h>
 
-#define MAX_KEY_LENGTH 65
-
-void generate_key(const char *username, char *key)
+/**
+ * main - Generates and prints passwords for the crackme5 executable.
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
+ *
+ * Return: Always 0 (success)
+ */
+int main(int __attribute__((__unused__)) argc, char *argv[])
 {
-	char input[MAX_KEY_LENGTH];
-	unsigned char output[SHA256_DIGEST_LENGTH];
+	char pass[7], *codex;
+	int length = strlen(argv[1]), i, tmp;
 
-	snprintf(input, sizeof(input), "%s%s", username, "SALT_VALUE");
-	SHA256((const unsigned char*)input, strlen(input), output);
+	codex = "A-CHRDw87lNS0E9B2TibgpnMVys5XzvtOGJcYLU+4mjW6fxqZeF3Qa1rPhdKIouk";
 
-	for (int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+	tmp = (length ^ 59) & 63;
+	pass[0] = codex[tmp];
+
+	tmp = 0;
+	for (i = 0; i < length; i++)
+		tmp += argv[1][i];
+	pass[1] = codex[(tmp ^ 79) & 63];
+
+	tmp = 1;
+	for (i = 0; i < length; i++)
+		tmp *= argv[1][i];
+	pass[2] = codex[(tmp ^ 85) & 63];
+
+	tmp = 0;
+	for (i = 0; i < length; i++)
 	{
-		snprintf(&key[i * 2], 3, "%02x", output[i]);
+		if (argv[1][i] > tmp)
+			tmp = argv[1][i];
 	}
-}
+	srand(tmp ^ 14);
+	pass[3] = codex[rand() & 63];
 
-int main(int argc, char *argv[])
-{
-	if (argc != 2)
-	{
-		printf("Usage: ./keygen5 username\n");
-		return (1);
-	}
-	const char *username = argv[1];
-	char key[MAX_KEY_LENGTH];
+	tmp = 0;
+	for (i = 0; i < length; i++)
+		tmp += (argv[1][i] * argv[1][i]);
+	pass[4] = codex[(tmp ^ 239) & 63];
 
-	generate_key(username, key);
-	printf("Generated Key: %s\n", key);
+	for (i = 0; i < argv[1][0]; i++)
+		tmp = rand();
+	pass[5] = codex[(tmp ^ 229) & 63];
+
+	pass[6] = '\0';
+	printf("%s", pass);
 	return (0);
 }
